@@ -12,9 +12,9 @@
     if (cucumberData.length) {
       const tableReportDOM = document.getElementById('table-report');
       let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureDuration = 0,
-        scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0;
+        scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0, featureStatus = '', featureStatusClass = '';
 
-      tableReportDOM.innerHTML = `<h1>Features</h1>`;
+      tableReportDOM.innerHTML = `<h1 class="pi-underlined">Features &amp; Details</h1>`;
 
       for (const feat in cucumberData) {
         feature = cucumberData[feat];
@@ -29,11 +29,11 @@
                 <th scope="col">Browser</th>
                 <th scope="col">Version</th>
                 <th scope="col">Platform</th>
-                <th scope="col text-center">Status</th>
-                <th scope="col text-center">Steps Passed</th>
-                <th scope="col text-center">Steps Failed</th>
-                <th scope="col text-center">Steps Undefined</th>
-                <th scope="col text-center">Duration</th>
+                <th scope="col"><div class="text-center">Status</div></th>
+                <th scope="col"><div class="text-center">Steps Passed</div></th>
+                <th scope="col"><div class="text-center">Steps Failed</div></th>
+                <th scope="col"><div class="text-center">Steps Undefined</div></th>
+                <th scope="col"><div class="text-center">Duration</div></th>
               </tr>
             </thead>
             <tbody>`;
@@ -43,7 +43,7 @@
               browserVersion = ucFirst(element.before[0].output[0].split(',')[1]),
               operatingSystem = ucFirst(element.before[0].output[0].split(',')[2]);
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, totalSteps = 0,
-              status = '';
+              status = '', statusClass = '';
 
             // Calculate the scenario's duration and status
             for (const before of element.before) {
@@ -80,19 +80,28 @@
             featureDuration += scenarioDuration;
 
             totalSteps = element.before.length + element.steps.length + element.after.length;
-            status = (!statusFailed && !statusUndefined) ? 'Passed' : 'Failed';
+            if (statusFailed) {
+              status = 'Failed';
+              statusClass = 'alert-danger';
+            } else if (statusUndefined) {
+              status = 'Undefined';
+              statusClass = 'alert-warning';
+            } else {
+              status = 'Passed';
+              statusClass = 'alert-success';
+            }
 
-            scenarioOutput += `<tr class="${status.toLowerCase()}">
+            scenarioOutput += `<tr class="${statusClass}">
               <th scope="row">${++noOfScenario}</th>
               <td scope="col">${element.name}</td>
               <td scope="col">${browserName}</td>
               <td scope="col">${browserVersion}</td>
               <td scope="col">${operatingSystem}</td>
-              <td scope="col text-center">${status}</td>
-              <td scope="col text-center">${statusPassed} / ${totalSteps}</td>
-              <td scope="col text-center">${statusFailed} / ${totalSteps}</td>
-              <td scope="col text-center">${statusUndefined} / ${totalSteps}</td>
-              <td scope="col text-center">${renderDuration(scenarioDuration)}</td>
+              <td scope="col"><div class="text-center">${status}</div></td>
+              <td scope="col"><div class="text-center">${statusPassed} / ${totalSteps}</div></td>
+              <td scope="col"><div class="text-center">${statusFailed} / ${totalSteps}</div></td>
+              <td scope="col"><div class="text-center">${statusUndefined} / ${totalSteps}</div></td>
+              <td scope="col"><div class="text-center">${renderDuration(scenarioDuration)}</div></td>
             </tr>`;
 
             if (statusFailed) {
@@ -110,12 +119,26 @@
           renderError(`No Scenarios found for the Feature "${feature.name}".`);
         }
 
-        tableReportDOM.innerHTML += `<h2>${feature.name}
-            <span class="feature-status">Passed</span>
-            <span class="scenarios-passed">${scenariosPassed} / ${scenarios}</span>
-            <span class="scenarios-failed">${scenariosFailed} / ${scenarios}</span>
-            <span class="scenarios-undefined">${scenariosUndefined} / ${scenarios}</span>
-            <span class="feature-duration">Duration: ${renderDuration(featureDuration)}</span>
+
+        if (scenariosFailed || scenariosUndefined) {
+          featureStatus = 'Failed';
+          featureStatusClass = 'alert-danger';
+        } else {
+          featureStatus = 'Passed';
+          featureStatusClass = 'alert-success';
+        }
+
+        tableReportDOM.innerHTML += `<h2 class="row">
+            <span class="col text-sm-left">
+              ${feature.name}
+              <span class="feature-status ${featureStatusClass}">${featureStatus}</span>
+            </span>
+            <span class="col text-sm-right">
+              <span class="scenarios-status alert-success">${scenariosPassed} / ${scenarios}</span>
+              <span class="scenarios-status alert-danger">${scenariosFailed} / ${scenarios}</span>
+              <span class="scenarios-status alert-warning">${scenariosUndefined} / ${scenarios}</span>
+              <span class="scenarios-status alert-info"><label>Duration:</label> ${renderDuration(featureDuration)}</span>
+            </span>
           </h2>
           ${scenarioOutput}`;
       }
