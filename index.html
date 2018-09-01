@@ -9,6 +9,9 @@
     <title>PI Cucumber Results</title>
     <link rel="stylesheet" href="sources/css/styles.css">
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+    <script src="node_modules/prefixfree/prefixfree.min.js"></script>
+    <script src="node_modules/conic-gradient/conic-gradient.js"></script>
     <script src="sources/js/main.js" defer></script>
 </head>
 
@@ -17,6 +20,42 @@
         <a class="navbar-brand" href="https://www.premierinn.com/gb/en/home.html"><img src="media/pi-logo.png" alt="Premier Inn"></a>
         <span>Test Automation Overview Report</span>
     </nav>
+    <section class="row m-0">
+        <div class="col">
+            <div id="feature-pie-chart" class="chart"></div>
+        </div>
+        <div class="col pie-chart-keys">
+            <ul class="key">
+                <li>
+                    <strong id="features-passed" class="percent green"></strong>
+                    <span class="choice">Features Passed</span>
+                </li>
+                <li>
+                    <strong id="features-failed" class="percent red"></strong>
+                    <span class="choice">Features Failed</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col">
+            <div id="scenarios-pie-chart" class="chart"></div>
+        </div>
+        <div class="col pie-chart-keys">
+            <ul class="key">
+                <li>
+                    <strong id="scenarios-passed" class="percent green"></strong>
+                    <span class="choice">Scenarios Passed</span>
+                </li>
+                <li>
+                    <strong id="scenarios-failed" class="percent red"></strong>
+                    <span class="choice">Scenarios Failed</span>
+                </li>
+                <li>
+                    <strong id="scenarios-undefined" class="percent yellow"></strong>
+                    <span class="choice">Scenarios Undefined</span>
+                </li>
+            </ul>
+        </div>
+    </section>
     <section id="table-report"></section>
 </body>
 

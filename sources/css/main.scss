@@ -54,3 +54,55 @@ section {
         border-radius: 6px;
     }
 }
+
+section {
+    .chart {
+        border-radius: 50%;
+        width: 50%;
+        height: 0;
+        padding-top: 50%;
+        padding-right: 20px;
+        float: right;
+    }
+
+    .pie-chart-keys {
+        .key {
+            float: left;
+            list-style: none;
+            display: table;
+            border-collapse: separate;
+
+            > li {
+                display: table-row;
+
+                > * {
+                    display: table-cell;
+                    border-bottom: 12px solid $pi-white;
+                }
+            }
+        }
+
+        .percent {
+            color: $pi-white;
+            padding: 10px;
+            text-shadow: 0 0 1px $pi-black;
+            text-align: center;
+        }
+
+        .choice {
+            padding-left: 10px;
+        }
+
+        .green {
+            background-color: $statsColorGreen;
+        }
+
+        .red {
+            background-color: $statsColorRed;
+        }
+
+        .yellow {
+            background-color: $statsColorYellow;
+        }
+    }
+}

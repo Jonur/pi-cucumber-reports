@@ -1,7 +1,11 @@
 (function () {
   'use strict';
 
-  const filePath = './cucumber-source/cucumber.json';
+  const filePath = './cucumber-source/cucumber.json',
+    statsColorGreen = '#60BD68',
+    statsColorRed = '#F15854',
+    statsColorYellow = '#B2912F';
+  // colors from http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
   let cucumberData = new Array();
 
   /**
@@ -11,7 +15,8 @@
   const iterateCucumberFeatures = () => {
     if (cucumberData.length) {
       const tableReportDOM = document.getElementById('table-report');
-      let feature = {}, scenarios;
+      let feature = {}, scenarios, featuresPassed = 0, featuresFailed = 0, totalScenariosPassed = 0, totalScenariosFailed = 0,
+        totalScenariosUndefined = 0;
 
       tableReportDOM.innerHTML = `<h1 class="pi-underlined">Features &amp; Details</h1>`;
 
@@ -85,14 +90,17 @@
               status = 'Failed';
               statusClass = 'alert-danger';
               ++scenariosFailed;
+              ++totalScenariosFailed;
             } else if (statusUndefined) {
               status = 'Undefined';
               statusClass = 'alert-warning';
               ++scenariosUndefined;
+              ++totalScenariosUndefined;
             } else {
               status = 'Passed';
               statusClass = 'alert-success';
               ++scenariosPassed;
+              ++totalScenariosPassed;
             }
 
             scenarioOutput += `<tr class="${statusClass}">
@@ -117,6 +125,11 @@
 
         featureStatus = scenariosFailed || scenariosUndefined ? 'Failed' : 'Passed';
         featureStatusClass = scenariosFailed || scenariosUndefined ? 'alert-danger' : 'alert-success';
+        if (!scenariosFailed && !scenariosUndefined) {
+          ++featuresPassed;
+        } else {
+          ++featuresFailed;
+        }
 
         tableReportDOM.innerHTML += `<h2 class="row push-up">
             <span class="col text-sm-left">
@@ -132,9 +145,59 @@
           </h2>
           ${scenarioOutput}`;
       }
+
+      generateFeaturePieChart(featuresPassed, featuresFailed);
+      generateScenarioPieChart(totalScenariosPassed, totalScenariosFailed, totalScenariosUndefined);
     } else {
       renderError('No Features found.');
     }
+  };
+
+  /**
+   * @function generateFeaturePieChart
+   * @description Creates the percentages for the features and adds the conic-gradient property to the element to create the pie chart.
+   * @param {Number} featuresPassed
+   * @param {Number} featuresFailed
+   */
+  const generateFeaturePieChart = (featuresPassed = 0, featuresFailed = 0) => {
+    const chart = document.getElementById('feature-pie-chart'),
+      total = featuresPassed + featuresFailed,
+      featuresPassedPercentage = Math.round(featuresPassed / total * 100),
+      featuresFailedPercentage = 100 - featuresPassedPercentage;
+
+    const gradient = new ConicGradient({
+      stops: `${statsColorGreen} ${featuresPassedPercentage}%, ${statsColorRed} 0`
+    });
+    chart.style.background = `url(${gradient.dataURL})`;
+
+    document.getElementById('features-passed').innerHTML = `${featuresPassedPercentage}%`;
+    document.getElementById('features-failed').innerHTML = `${featuresFailedPercentage}%`;
+  };
+
+  /**
+   * @function generateScenarioPieChart
+   * @description Creates the percentages for the scenarios and adds the conic-gradient property to the element to create the pie chart.
+   * @param {Number} totalScenariosPassed
+   * @param {Number} totalScenariosFailed
+   * @param {Number} totalScenariosUndefined
+   */
+  const generateScenarioPieChart = (totalScenariosPassed = 0, totalScenariosFailed = 0, totalScenariosUndefined = 0) => {
+    const chart = document.getElementById('scenarios-pie-chart'),
+      total = totalScenariosPassed + totalScenariosFailed + totalScenariosUndefined,
+      totalScenariosPassedPercentage = Math.round(totalScenariosPassed / total * 100),
+      totalScenariosFailedPercentage = Math.round(totalScenariosFailed / total * 100),
+      totalScenariosUndefinedPercentage = 100 - totalScenariosPassedPercentage - totalScenariosFailedPercentage;
+
+    const gradient = new ConicGradient({
+      stops: `${statsColorGreen} ${totalScenariosPassedPercentage}%,
+        ${statsColorRed} 0 ${totalScenariosPassedPercentage + totalScenariosFailedPercentage}%,
+        ${statsColorYellow} 0`
+    });
+    chart.style.background = `url(${gradient.dataURL})`;
+
+    document.getElementById('scenarios-passed').innerHTML = `${totalScenariosPassedPercentage}%`;
+    document.getElementById('scenarios-failed').innerHTML = `${totalScenariosFailedPercentage}%`;
+    document.getElementById('scenarios-undefined').innerHTML = `${totalScenariosUndefinedPercentage}%`;
   };
 
   /**
