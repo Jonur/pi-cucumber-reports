@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const filePath = './cucumber-source/cucumber.json'
+  const filePath = './cucumber-source/cucumber.json';
   let cucumberData = new Array();
 
   /**
@@ -10,7 +10,7 @@
    */
   const iterateCucumberFeatures = () => {
     const tableReportDOM = document.getElementById('table-report');
-    let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, browserName = '', browserVersion = '', operatingSystem = '';
+    let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureStatus = '', featureDuration = 0;
 
     if (cucumberData.length) {
       tableReportDOM.innerHTML = `<h1>Features</h1>`;
@@ -37,40 +37,63 @@
             </thead>
             <tbody>`;
           for (const element of feature.elements) {
-            let scenarioDuration = 0, durationDisplay = 0;
-            console.log(element);
-            browserName = ucFirst(element.before[0].output[0].split(',')[0]);
-            browserVersion = ucFirst(element.before[0].output[0].split(',')[1]);
-            operatingSystem = ucFirst(element.before[0].output[0].split(',')[2]);
+            const browserName = ucFirst(element.before[0].output[0].split(',')[0]),
+              browserVersion = ucFirst(element.before[0].output[0].split(',')[1]),
+              operatingSystem = ucFirst(element.before[0].output[0].split(',')[2]);
+            let scenarioDuration = 0, durationDisplay = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, totalSteps = 0,
+              status = '';
 
-            // Calculate
+            // Calculate scenarioDuration and scenarioStatus
             for (const before of element.before) {
               scenarioDuration += before.result.duration;
+              if (before.result.status === 'failed') {
+                ++statusFailed;
+              } else if (before.result.status !== 'passed' && before.result.status !== 'failed') {
+                ++statusUndefined;
+              } else {
+                ++statusPassed;
+              }
             }
             for (const step of element.steps) {
               scenarioDuration += step.result.duration;
+              if (step.result.status === 'failed') {
+                ++statusFailed;
+              } else if (step.result.status !== 'passed' && step.result.status !== 'failed') {
+                ++statusUndefined;
+              } else {
+                ++statusPassed;
+              }
             }
             for (const after of element.after) {
               scenarioDuration += after.result.duration;
+              if (after.result.status === 'failed') {
+                ++statusFailed;
+              } else if (after.result.status !== 'passed' && after.result.status !== 'failed') {
+                ++statusUndefined;
+              } else {
+                ++statusPassed;
+              }
             }
 
-            // Convert Nanoseconds to Seconds and append the 's' symbol
-            durationDisplay = `${(scenarioDuration / 1000000000).toFixed(2)}s`;
-            console.log((scenarioDuration / 1000000000).toFixed(2));
+            featureDuration += scenarioDuration;
 
-            scenarioOutput += `<tr>
+            totalSteps = element.before.length + element.steps.length + element.after.length;
+            status = (!statusFailed && !statusUndefined) ? 'Passed' : 'Failed';
+
+            scenarioOutput += `<tr class="${status.toLowerCase()}">
               <th scope="row">${++noOfScenario}</th>
               <td scope="col">${element.name}</td>
               <td scope="col">${browserName}</td>
               <td scope="col">${browserVersion}</td>
               <td scope="col">${operatingSystem}</td>
-              <td scope="col">Status</td>
-              <td scope="col">Steps Passed</td>
-              <td scope="col">Steps Failed</td>
-              <td scope="col">Steps Undefined</td>
-              <td scope="col">${durationDisplay}</td>
+              <td scope="col text-center">${status}</td>
+              <td scope="col text-center">${statusPassed} / ${totalSteps}</td>
+              <td scope="col text-center">${statusFailed} / ${totalSteps}</td>
+              <td scope="col text-center">${statusUndefined} / ${totalSteps}</td>
+              <td scope="col text-center">${renderDuration(scenarioDuration)}</td>
             </tr>`;
           }
+
           scenarioOutput += `</tbody>
             </table >`;
         } else {
@@ -78,13 +101,13 @@
         }
 
         tableReportDOM.innerHTML += `<h2>${feature.name}
-          <span class="feature-status">Passed</span>
-          <span class="scenarios-passed">2/${scenarios}</span>
-          <span class="scenarios-failed">0/${scenarios}</span>
-          <span class="scenarios-undefined">0/${scenarios}</span>
-          <span class="feature-duration">Duration: 43.75s</span>
-        </h2>
-        ${scenarioOutput}`;
+            <span class="feature-status">Passed</span>
+            <span class="scenarios-passed">2/${scenarios}</span>
+            <span class="scenarios-failed">0/${scenarios}</span>
+            <span class="scenarios-undefined">0/${scenarios}</span>
+            <span class="feature-duration">Duration: ${renderDuration(featureDuration)}</span>
+          </h2>
+          ${scenarioOutput}`;
       }
     } else {
       renderError('No Features found.');
@@ -106,6 +129,13 @@
   const renderError = (str = '') => {
     document.getElementById('table-report').innerHTML += `<div class="alert alert-danger" role="alert">${str}</div>`;
   };
+
+  /**
+   * @function renderDuration
+   * @description Convert Nanoseconds to Seconds and append the 's' symbol
+   * @param {Number} num
+   */
+  const renderDuration = (num = 0) => `${(num / 1000000000).toFixed(2)}s`;
 
   /**
    * @description Use jQuery to get the JSON file contents and store them to the `cucumberData` Array. When the file has loaded, the
