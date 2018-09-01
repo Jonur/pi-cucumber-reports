@@ -34,6 +34,10 @@ section {
         font-weight: bold;
         font-size: 1.438rem;
         line-height: 1.75rem;
+
+        &.push-up {
+            margin-top: 2rem;
+        }
     }
 
     label {

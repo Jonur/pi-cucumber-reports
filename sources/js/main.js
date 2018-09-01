@@ -128,7 +128,7 @@
           featureStatusClass = 'alert-success';
         }
 
-        tableReportDOM.innerHTML += `<h2 class="row">
+        tableReportDOM.innerHTML += `<h2 class="row push-up">
             <span class="col text-sm-left">
               ${feature.name}
               <span class="feature-status ${featureStatusClass}">${featureStatus}</span>
