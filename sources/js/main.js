@@ -9,11 +9,11 @@
    * @description Iterate the Cucumber report per feature and then per scenario and render the results.
    */
   const iterateCucumberFeatures = () => {
-    const tableReportDOM = document.getElementById('table-report');
-    let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureStatus = '', featureDuration = 0,
-      scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0;
-
     if (cucumberData.length) {
+      const tableReportDOM = document.getElementById('table-report');
+      let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureDuration = 0,
+        scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0;
+
       tableReportDOM.innerHTML = `<h1>Features</h1>`;
 
       for (const feat in cucumberData) {
@@ -37,14 +37,15 @@
               </tr>
             </thead>
             <tbody>`;
+
           for (const element of feature.elements) {
             const browserName = ucFirst(element.before[0].output[0].split(',')[0]),
               browserVersion = ucFirst(element.before[0].output[0].split(',')[1]),
               operatingSystem = ucFirst(element.before[0].output[0].split(',')[2]);
-            let scenarioDuration = 0, durationDisplay = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, totalSteps = 0,
+            let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, totalSteps = 0,
               status = '';
 
-            // Calculate scenarioDuration and scenarioStatus
+            // Calculate the scenario's duration and status
             for (const before of element.before) {
               scenarioDuration += before.result.duration;
               if (before.result.status === 'failed') {
