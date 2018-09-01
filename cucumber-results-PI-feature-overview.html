@@ -1,143 +1,193 @@
 <html>
- <head>
-  <style type="text/css">h1 {background-color:#9999CC}
-h2 {background-color:#BBBBCC}
-h3 {background-color:#DDDDFF}
-th {border:1px solid black;background-color:#CCCCDD;}
-td{border:1px solid black;}
-table {border:1px solid black;border-collapse: collapse;}
-.chart {border:0px none black;border-collapse: collapse;background-color: none;}
-.passed {background-color:lightgreen;font-weight:bold;color:darkgreen}
-.skipped {background-color:silver;font-weight:bold;color:darkgray}
-.failed {background-color:tomato;font-weight:bold;color:darkred}
-.undefined {background-color:gold;font-weight:bold;color:goldenrod}
-</style>
-  <title>Features Overview</title>
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-      google.load("visualization", "1.1", {packages:["corechart","bar"]});
-	  google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var sc_data = google.visualization.arrayToDataTable([
-          ['Status', 'Number'],
-['Passed', 2], ['Failed', 0], ['Undefined', 0]
-        ]);
 
-        var sc_options = {
-          title: 'Scenario Status',
-          is3D: true,
-		  slices: {
-            0: { color: 'green' },
-            1: { color: 'red' , offset: 0.1 },
-            2: { color: 'silver' , offset: 0.1 }
-          },
-		  tooltip: {
-		  showColorCode: true
-		  }
-        };
+<head>
+    <style type="text/css">
+        h1 {
+            background-color: #9999CC
+        }
 
-        var sc_chart = new google.visualization.PieChart(document.getElementById('scenariochart_3d'));
-        sc_chart.draw(sc_data, sc_options);
-        var feat_data = google.visualization.arrayToDataTable([
-          ['Status', 'Number'],
-['Passed', 1], ['Failed', 0], ['Undefined', 0]
-        ]);
+        h2 {
+            background-color: #BBBBCC
+        }
 
-        var feat_options = {
-          title: 'Feature Status',
-          is3D: true,
-		  slices: {
-            0: { color: 'green' },
-            1: { color: 'red', offset: 0.1 },
-            2: { color: 'silver', offset: 0.1 }
-          },
-		  tooltip: {
-		  showColorCode: true
-		  }
-        };
+        h3 {
+            background-color: #DDDDFF
+        }
 
-        var feat_chart = new google.visualization.PieChart(document.getElementById('featurechart_3d'));
-        feat_chart.draw(feat_data, feat_options);
-      }
+        th {
+            border: 1px solid black;
+            background-color: #CCCCDD;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .chart {
+            border: 0px none black;
+            border-collapse: collapse;
+            background-color: none;
+        }
+
+        .passed {
+            background-color: lightgreen;
+            font-weight: bold;
+            color: darkgreen
+        }
+
+        .skipped {
+            background-color: silver;
+            font-weight: bold;
+            color: darkgray
+        }
+
+        .failed {
+            background-color: tomato;
+            font-weight: bold;
+            color: darkred
+        }
+
+        .undefined {
+            background-color: gold;
+            font-weight: bold;
+            color: goldenrod
+        }
+    </style>
+    <title>Features Overview</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1.1", { packages: ["corechart", "bar"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var sc_data = google.visualization.arrayToDataTable([
+                ['Status', 'Number'],
+                ['Passed', 2], ['Failed', 0], ['Undefined', 0]
+            ]);
+
+            var sc_options = {
+                title: 'Scenario Status',
+                is3D: true,
+                slices: {
+                    0: { color: 'green' },
+                    1: { color: 'red', offset: 0.1 },
+                    2: { color: 'silver', offset: 0.1 }
+                },
+                tooltip: {
+                    showColorCode: true
+                }
+            };
+
+            var sc_chart = new google.visualization.PieChart(document.getElementById('scenariochart_3d'));
+            sc_chart.draw(sc_data, sc_options);
+            var feat_data = google.visualization.arrayToDataTable([
+                ['Status', 'Number'],
+                ['Passed', 1], ['Failed', 0], ['Undefined', 0]
+            ]);
+
+            var feat_options = {
+                title: 'Feature Status',
+                is3D: true,
+                slices: {
+                    0: { color: 'green' },
+                    1: { color: 'red', offset: 0.1 },
+                    2: { color: 'silver', offset: 0.1 }
+                },
+                tooltip: {
+                    showColorCode: true
+                }
+            };
+
+            var feat_chart = new google.visualization.PieChart(document.getElementById('featurechart_3d'));
+            feat_chart.draw(feat_data, feat_options);
+        }
     </script>
- </head>
- <body>
-  <h1>TEST AUTOMATION OVERVIEW REPORT: PI-CHROME-ODE</h1>
-  <h1>LATEST RUN : 29-08-2018 17:09</h1>
-  <table class="chart">
-   <tbody>
-    <tr class="chart">
-     <td class="chart">
-      <div id="featurechart_3d" style="width: 400px; height: 300px;"></div></td>
-     <td class="chart">
-      <div id="scenariochart_3d" style="width: 400px; height: 300px;"></div></td>
-    </tr>
-   </tbody>
-  </table>
-  <h1>Features Status</h1>
-  <table>
-   <tbody>
-    <tr>
-     <th>Feature Name</th>
-     <th>Status</th>
-     <th>Passed</th>
-     <th>Failed</th>
-     <th>Undefined</th>
-     <th>Duration</th>
-    </tr>
-    <tr class="passed">
-     <td>Premier Inn hotel details page</td>
-     <td>passed</td>
-     <td>2</td>
-     <td>0</td>
-     <td>0</td>
-     <td>43.75s</td>
-    </tr>
-   </tbody>
-  </table>
-  <h1>Scenario Status</h1>
-  <table>
-   <tbody>
-    <tr>
-     <th>Browser Name</th>
-     <th>Version</th>
-     <th>Platform</th>
-     <th>Feature Name</th>
-     <th>Scenario</th>
-     <th>Status</th>
-     <th>Passed</th>
-     <th>Failed</th>
-     <th>Undefined</th>
-     <th>Retries</th>
-     <th>Duration</th>
-    </tr>
-    <tr class="passed">
-     <td>chrome</td>
-     <td>68.0.3440.106</td>
-     <td>WINDOWS</td>
-     <td>Premier Inn hotel details page</td>
-     <td>User books a flex room at the first available hotel in a random location</td>
-     <td>passed</td>
-     <td>4</td>
-     <td>0</td>
-     <td>0</td>
-     <td>0</td>
-     <td>19.14s</td>
-    </tr>
-    <tr class="passed">
-     <td>safari</td>
-     <td>11.1.2</td>
-     <td>MAC</td>
-     <td>Premier Inn hotel details page</td>
-     <td>User books a saver room at a specific hotel</td>
-     <td>passed</td>
-     <td>4</td>
-     <td>0</td>
-     <td>0</td>
-     <td>0</td>
-     <td>24.61s</td>
-    </tr>
-   </tbody>
-  </table>
- </body>
+</head>
+
+<body>
+    <h1>TEST AUTOMATION OVERVIEW REPORT: PI-CHROME-ODE</h1>
+    <h1>LATEST RUN : 29-08-2018 17:09</h1>
+    <table class="chart">
+        <tbody>
+            <tr class="chart">
+                <td class="chart">
+                    <div id="featurechart_3d" style="width: 400px; height: 300px;"></div>
+                </td>
+                <td class="chart">
+                    <div id="scenariochart_3d" style="width: 400px; height: 300px;"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Features Status</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Feature Name</th>
+                <th>Status</th>
+                <th>Passed</th>
+                <th>Failed</th>
+                <th>Undefined</th>
+                <th>Duration</th>
+            </tr>
+            <tr class="passed">
+                <td>Premier Inn hotel details page</td>
+                <td>passed</td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td>43.75s</td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Scenario Status</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Browser Name</th>
+                <th>Version</th>
+                <th>Platform</th>
+                <th>Feature Name</th>
+                <th>Scenario</th>
+                <th>Status</th>
+                <th>Passed</th>
+                <th>Failed</th>
+                <th>Undefined</th>
+                <th>Retries</th>
+                <th>Duration</th>
+            </tr>
+            <tr class="passed">
+                <td>chrome</td>
+                <td>68.0.3440.106</td>
+                <td>WINDOWS</td>
+                <td>Premier Inn hotel details page</td>
+                <td>User books a flex room at the first available hotel in a random location</td>
+                <td>passed</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>19.14s</td>
+            </tr>
+            <tr class="passed">
+                <td>safari</td>
+                <td>11.1.2</td>
+                <td>MAC</td>
+                <td>Premier Inn hotel details page</td>
+                <td>User books a saver room at a specific hotel</td>
+                <td>passed</td>
+                <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>24.61s</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
 </html>
