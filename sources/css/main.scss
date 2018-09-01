@@ -1,0 +1,17 @@
+// Imports
+@import "partials/variables";
+
+// Project-specific styles
+body {
+    font-family: $pi-font;
+}
+
+nav {
+    background-color: $pi-purple;
+
+    span {
+        float: right;
+        font-size: 2rem;
+        color: $pi-white;
+    }
+}
