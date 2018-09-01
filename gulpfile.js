@@ -8,13 +8,13 @@
 
   gulp.task('sass', () => {
     return gulp.src(['./node_modules/bootstrap/dist/css/bootstrap.min.css', './sources/css/**/*.scss'])
-      .pipe(sass().on('error', sass.logError))
-      .pipe(concat('./sources/css/styles.scss'))
+      .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+      .pipe(concat('./sources/css/styles.css'))
       .pipe(minify())
-      .pipe(gulp.dest('./sources/css'));
+      .pipe(gulp.dest('./'));
+  });
+
+  gulp.task('watch', () => {
+    gulp.watch('./sources/css/**/*.scss', ['sass']);
   });
 })();
-
-// gulp.task('sass:watch', function () {
-//   gulp.watch('./sass/**/*.scss', ['sass']);
-// });
