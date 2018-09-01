@@ -1,11 +1,16 @@
 (function () {
   'use strict';
 
+  /**
+   * CONFIGURATION
+   */
   const filePath = './cucumber-source/cucumber.json',
+
+    // Color palette optimized for data visualization from http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
     statsColorGreen = '#60BD68',
     statsColorRed = '#F15854',
     statsColorYellow = '#B2912F';
-  // colors from http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
+
   let cucumberData = new Array();
 
   /**
