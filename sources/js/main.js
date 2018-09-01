@@ -10,7 +10,8 @@
    */
   const iterateCucumberFeatures = () => {
     const tableReportDOM = document.getElementById('table-report');
-    let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureStatus = '', featureDuration = 0;
+    let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureStatus = '', featureDuration = 0,
+      scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0;
 
     if (cucumberData.length) {
       tableReportDOM.innerHTML = `<h1>Features</h1>`;
@@ -28,11 +29,11 @@
                 <th scope="col">Browser</th>
                 <th scope="col">Version</th>
                 <th scope="col">Platform</th>
-                <th scope="col">Status</th>
-                <th scope="col">Steps Passed</th>
-                <th scope="col">Steps Failed</th>
-                <th scope="col">Steps Undefined</th>
-                <th scope="col">Duration</th>
+                <th scope="col text-center">Status</th>
+                <th scope="col text-center">Steps Passed</th>
+                <th scope="col text-center">Steps Failed</th>
+                <th scope="col text-center">Steps Undefined</th>
+                <th scope="col text-center">Duration</th>
               </tr>
             </thead>
             <tbody>`;
@@ -92,6 +93,14 @@
               <td scope="col text-center">${statusUndefined} / ${totalSteps}</td>
               <td scope="col text-center">${renderDuration(scenarioDuration)}</td>
             </tr>`;
+
+            if (statusFailed) {
+              ++scenariosFailed;
+            } else if (statusUndefined) {
+              ++scenariosUndefined;
+            } else {
+              ++scenariosPassed;
+            }
           }
 
           scenarioOutput += `</tbody>
@@ -102,9 +111,9 @@
 
         tableReportDOM.innerHTML += `<h2>${feature.name}
             <span class="feature-status">Passed</span>
-            <span class="scenarios-passed">2/${scenarios}</span>
-            <span class="scenarios-failed">0/${scenarios}</span>
-            <span class="scenarios-undefined">0/${scenarios}</span>
+            <span class="scenarios-passed">${scenariosPassed} / ${scenarios}</span>
+            <span class="scenarios-failed">${scenariosFailed} / ${scenarios}</span>
+            <span class="scenarios-undefined">${scenariosUndefined} / ${scenarios}</span>
             <span class="feature-duration">Duration: ${renderDuration(featureDuration)}</span>
           </h2>
           ${scenarioOutput}`;
