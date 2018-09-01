@@ -11,12 +11,13 @@
   const iterateCucumberFeatures = () => {
     if (cucumberData.length) {
       const tableReportDOM = document.getElementById('table-report');
-      let feature = {}, scenarios, scenarioOutput = '', noOfScenario = 0, featureDuration = 0,
-        scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0, featureStatus = '', featureStatusClass = '';
+      let feature = {}, scenarios;
 
       tableReportDOM.innerHTML = `<h1 class="pi-underlined">Features &amp; Details</h1>`;
 
       for (const feat in cucumberData) {
+        let featureDuration = 0, scenarioOutput = '', noOfScenario = 0, scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0,
+          featureStatus = '', featureStatusClass = '';
         feature = cucumberData[feat];
         scenarios = feature.elements.length;
 
@@ -78,17 +79,20 @@
             }
 
             featureDuration += scenarioDuration;
-
             totalSteps = element.before.length + element.steps.length + element.after.length;
+
             if (statusFailed) {
               status = 'Failed';
               statusClass = 'alert-danger';
+              ++scenariosFailed;
             } else if (statusUndefined) {
               status = 'Undefined';
               statusClass = 'alert-warning';
+              ++scenariosUndefined;
             } else {
               status = 'Passed';
               statusClass = 'alert-success';
+              ++scenariosPassed;
             }
 
             scenarioOutput += `<tr class="${statusClass}">
@@ -103,14 +107,6 @@
               <td scope="col"><div class="text-center">${statusUndefined} / ${totalSteps}</div></td>
               <td scope="col"><div class="text-center">${renderDuration(scenarioDuration)}</div></td>
             </tr>`;
-
-            if (statusFailed) {
-              ++scenariosFailed;
-            } else if (statusUndefined) {
-              ++scenariosUndefined;
-            } else {
-              ++scenariosPassed;
-            }
           }
 
           scenarioOutput += `</tbody>
@@ -119,14 +115,8 @@
           renderError(`No Scenarios found for the Feature "${feature.name}".`);
         }
 
-
-        if (scenariosFailed || scenariosUndefined) {
-          featureStatus = 'Failed';
-          featureStatusClass = 'alert-danger';
-        } else {
-          featureStatus = 'Passed';
-          featureStatusClass = 'alert-success';
-        }
+        featureStatus = scenariosFailed || scenariosUndefined ? 'Failed' : 'Passed';
+        featureStatusClass = scenariosFailed || scenariosUndefined ? 'alert-danger' : 'alert-success';
 
         tableReportDOM.innerHTML += `<h2 class="row push-up">
             <span class="col text-sm-left">

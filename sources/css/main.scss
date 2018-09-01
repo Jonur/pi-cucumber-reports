@@ -9,6 +9,11 @@ body {
 nav {
     background-color: $pi-purple;
 
+    img {
+        width: auto;
+        height: 50px;
+    }
+
     span {
         float: right;
         font-size: 2rem;
