@@ -23,7 +23,7 @@
       let feature = {}, scenarios, featuresPassed = 0, featuresFailed = 0, totalScenariosPassed = 0, totalScenariosFailed = 0,
         totalScenariosUndefined = 0;
 
-      tableReportDOM.innerHTML = `<h1 class="pi-underlined">Features &amp; Details</h1>`;
+      tableReportDOM.innerHTML = '';
 
       for (const feat in cucumberData) {
         let featureDuration = 0, scenarioOutput = '', noOfScenario = 0, scenariosPassed = 0, scenariosFailed = 0, scenariosUndefined = 0,

@@ -14,17 +14,18 @@ nav {
         height: 50px;
     }
 
-    span {
+    h1 {
         float: right;
         font-size: 2rem;
         color: $pi-white;
+        margin: 0;
     }
 }
 
 section {
     padding: 20px;
 
-    h1.pi-underlined {
+    .pi-underlined {
         color: $pi-purple-dark;
         font-size: 1.8rem;
         font-weight: bold;
