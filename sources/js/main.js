@@ -10,6 +10,8 @@
     statsColorGreen = '#60BD68',
     statsColorRed = '#F15854',
     statsColorYellow = '#B2912F';
+  const tableReportDOM = document.querySelector('#table-report'),
+    statisticsDOM = document.querySelector('#statistics');
 
   let cucumberData = new Array();
 
@@ -19,7 +21,6 @@
    */
   const iterateCucumberFeatures = () => {
     if (cucumberData.length) {
-      const tableReportDOM = document.getElementById('table-report');
       let feature = {}, scenarios, featuresPassed = 0, featuresFailed = 0, totalScenariosPassed = 0, totalScenariosFailed = 0,
         totalScenariosUndefined = 0;
 
@@ -32,6 +33,8 @@
         scenarios = feature.elements.length;
 
         if (scenarios) {
+          statisticsDOM.classList.remove('d-none');
+
           scenarioOutput = `<table class="table">
             <thead>
               <tr>
@@ -50,38 +53,19 @@
             <tbody>`;
 
           for (const element of feature.elements) {
-            const browserName = ucFirst(element.before[0].output[0]),
-              browserVersion = ucFirst(element.before[0].output[1]),
-              operatingSystem = ucFirst(element.before[0].output[2]);
-            let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, totalSteps = 0,
-              status = '', statusClass = '';
+            const currentBefore = element.before[0],
+              browserName = ucFirst(currentBefore.output[0]),
+              browserVersion = ucFirst(currentBefore.output[1]),
+              operatingSystem = ucFirst(currentBefore.output[2]);
+            let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '';
 
             // Calculate the scenario's duration and status
-            for (const before of element.before) {
-              scenarioDuration += before.result.duration;
-              if (before.result.status === 'failed') {
+            const phases = [...element.before, ...element.steps, ...element.after];
+            for (const phase of phases) {
+              scenarioDuration += phase.result.duration;
+              if (phase.result.status === 'failed') {
                 ++statusFailed;
-              } else if (before.result.status !== 'passed' && before.result.status !== 'failed') {
-                ++statusUndefined;
-              } else {
-                ++statusPassed;
-              }
-            }
-            for (const step of element.steps) {
-              scenarioDuration += step.result.duration;
-              if (step.result.status === 'failed') {
-                ++statusFailed;
-              } else if (step.result.status !== 'passed' && step.result.status !== 'failed') {
-                ++statusUndefined;
-              } else {
-                ++statusPassed;
-              }
-            }
-            for (const after of element.after) {
-              scenarioDuration += after.result.duration;
-              if (after.result.status === 'failed') {
-                ++statusFailed;
-              } else if (after.result.status !== 'passed' && after.result.status !== 'failed') {
+              } else if (phase.result.status !== 'passed' && phase.result.status !== 'failed') {
                 ++statusUndefined;
               } else {
                 ++statusPassed;
@@ -89,7 +73,6 @@
             }
 
             featureDuration += scenarioDuration;
-            totalSteps = element.before.length + element.steps.length + element.after.length;
 
             if (statusFailed) {
               status = 'Failed';
@@ -115,9 +98,9 @@
               <td scope="col">${browserVersion}</td>
               <td scope="col">${operatingSystem}</td>
               <td scope="col"><div class="text-center">${status}</div></td>
-              <td scope="col"><div class="text-center">${statusPassed} / ${totalSteps}</div></td>
-              <td scope="col"><div class="text-center">${statusFailed} / ${totalSteps}</div></td>
-              <td scope="col"><div class="text-center">${statusUndefined} / ${totalSteps}</div></td>
+              <td scope="col"><div class="text-center">${statusPassed} / ${phases.length}</div></td>
+              <td scope="col"><div class="text-center">${statusFailed} / ${phases.length}</div></td>
+              <td scope="col"><div class="text-center">${statusUndefined} / ${phases.length}</div></td>
               <td scope="col"><div class="text-center">${renderDuration(scenarioDuration)}</div></td>
             </tr>`;
           }
@@ -125,7 +108,8 @@
           scenarioOutput += `</tbody>
             </table >`;
         } else {
-          renderError(`No Scenarios found for the Feature "${feature.name}".`);
+          renderError(`No Scenarios found for the Feature <strong>"${feature.name}"</strong>. The JSON file is possibly corrupted.`);
+          return true;
         }
 
         featureStatus = scenariosFailed || scenariosUndefined ? 'Failed' : 'Passed';
@@ -155,12 +139,14 @@
       generateScenarioPieChart(totalScenariosPassed, totalScenariosFailed, totalScenariosUndefined);
     } else {
       renderError('No Features found.');
+      return true;
     }
   };
 
   /**
    * @function generateFeaturePieChart
    * @description Creates the percentages for the features and adds the conic-gradient property to the element to create the pie chart.
+   * Conic Grandients documentation: https://leaverou.github.io/conic-gradient
    * @param {Number} featuresPassed
    * @param {Number} featuresFailed
    */
@@ -182,6 +168,7 @@
   /**
    * @function generateScenarioPieChart
    * @description Creates the percentages for the scenarios and adds the conic-gradient property to the element to create the pie chart.
+   * Conic Grandients documentation: https://leaverou.github.io/conic-gradient
    * @param {Number} totalScenariosPassed
    * @param {Number} totalScenariosFailed
    * @param {Number} totalScenariosUndefined
@@ -218,7 +205,8 @@
    * @param {String} str
    */
   const renderError = (str = '') => {
-    document.getElementById('table-report').innerHTML += `<div class="alert alert-danger" role="alert">${str}</div>`;
+    tableReportDOM.innerHTML = `<div class="alert alert-danger" role="alert">${str}</div>`;
+    statisticsDOM.classList.add('d-none');
   };
 
   /**
