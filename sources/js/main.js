@@ -187,7 +187,7 @@
    * @description Converts a String to lower case and capitalises its first character
    * @param {String} str
    */
-  const ucFirst = (str = '') => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  const ucFirst = (str = '') => str.split(' ').map(substr => substr.charAt(0).toUpperCase() + substr.slice(1).toLowerCase()).join(' ');
 
   /**
    * @function renderError
