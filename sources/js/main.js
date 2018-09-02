@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  const tableReportDOM = document.querySelector('#table-report'),
-    statisticsDOM = document.querySelector('#statistics');
+  const tableReportDOM = document.getElementById('table-report'),
+    statisticsDOM = document.getElementById('statistics');
   let cucumberData = new Array();
 
   /**
