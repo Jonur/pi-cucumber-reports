@@ -44,9 +44,9 @@
 
           for (const element of feature.elements) {
             const currentBefore = element.before[0],
-              browserName = ucFirst(currentBefore.output[0]),
-              browserVersion = ucFirst(currentBefore.output[1]),
-              operatingSystem = ucFirst(currentBefore.output[2]);
+              browserName = currentBefore.output[0],
+              browserVersion = currentBefore.output[1],
+              operatingSystem = currentBefore.output[2];
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '';
 
             // Calculate the scenario's duration and status
@@ -84,9 +84,9 @@
             scenarioOutput += `<tr class="${statusClass}">
               <th scope="row">${++noOfScenario}</th>
               <td scope="col">${element.name}</td>
-              <td scope="col">${browserName}</td>
+              <td scope="col"><span class="text-capitalize">${browserName}</span></td>
               <td scope="col">${browserVersion}</td>
-              <td scope="col">${operatingSystem}</td>
+              <td scope="col"><span class="text-capitalize">${operatingSystem}</span></td>
               <td scope="col"><div class="text-center">${status}</div></td>
               <td scope="col"><div class="text-center">${statusPassed} / ${phases.length}</div></td>
               <td scope="col"><div class="text-center">${statusFailed} / ${phases.length}</div></td>
@@ -181,13 +181,6 @@
     document.getElementById('scenarios-failed').innerHTML = `${totalScenariosFailedPercentage}%`;
     document.getElementById('scenarios-undefined').innerHTML = `${totalScenariosUndefinedPercentage}%`;
   };
-
-  /**
-   * @function ucFirst
-   * @description Converts a String to lower case and capitalises its first character
-   * @param {String} str
-   */
-  const ucFirst = (str = '') => str.split(' ').map(substr => substr.charAt(0).toUpperCase() + substr.slice(1).toLowerCase()).join(' ');
 
   /**
    * @function renderError
