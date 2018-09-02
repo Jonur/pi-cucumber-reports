@@ -1,21 +1,17 @@
 {
   "name": "pi-cucumber-reports",
   "version": "1.0.0",
-  "description": "Representation for Cucumber results",
+  "description": "Visual representation of the Test Automation Overview Report from Cucumber",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jonur/pi-cucumber-reports.git"
   },
-  "author": "Whitbread",
+  "author": "Dimitris Damilos <dimitris.damilos@whitbread.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Jonur/pi-cucumber-reports/issues"
   },
   "homepage": "https://github.com/Jonur/pi-cucumber-reports#readme",
-  "contributors": [
-    "Dimitris Damilos <dimitris.damilos@whitbread.com>",
-    "Santiago Eliard <santiago.eliard@whitbread.com>"
-  ],
   "dependencies": {
     "bootstrap": "^4.1.3",
     "conic-gradient": "^1.0.0"
