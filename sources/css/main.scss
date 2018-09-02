@@ -22,18 +22,21 @@ nav {
     }
 }
 
+.pi-underlined {
+    color: $pi-purple-dark;
+    font-weight: bold;
+    font-size: 1.438rem;
+    line-height: 1.75rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid $pi-grey;
+}
+
+.squeeze {
+    padding: 0 20px;
+}
+
 section {
     padding: 20px;
-
-    .pi-underlined {
-        color: $pi-purple-dark;
-        font-size: 1.8rem;
-        font-weight: bold;
-        line-height: 1.8rem;
-        padding-bottom: 8px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid $pi-grey;
-    }
 
     h2 {
         color: $pi-purple-dark;
