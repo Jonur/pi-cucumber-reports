@@ -22,7 +22,6 @@
 
   // JS
   const jsFiles = [
-    './node_modules/jquery/dist/jquery.min.js',
     './node_modules/prefixfree/prefixfree.min.js',
     './node_modules/conic-gradient/conic-gradient.js'];
 

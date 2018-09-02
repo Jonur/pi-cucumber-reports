@@ -12,7 +12,7 @@ The results will be updated seemlessly as the JSON files are themselves updated,
 
 ## Installation
 
-The project is plug and play, but it does require a server to run on, as it uses an [XMLHTTPRequest](https://api.jquery.com/jquery.getjson/) to fetch the JSON files.
+The project is plug and play, but it does require a server to run on, as it uses an [XMLHTTPRequest](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to fetch the JSON files.
 
 For development use, running `npm install` would be sufficient.
 

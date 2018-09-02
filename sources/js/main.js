@@ -200,7 +200,7 @@
   const renderDuration = (num = 0) => `${(num / 1000000000).toFixed(2)}s`;
 
   /**
-   * @description Use jQuery to get the JSON file contents and store them to the `cucumberData` Array. When the file has loaded, the
+   * @description Get the JSON file contents and store them to the `cucumberData` Array. When the file has loaded, the
    * `iterateCucumberFeatures` Function executes, but if there is a problem with loading the file, then an error is shown on the page.
    * Every 30 seconds it switches between the two files set in `config.js`.
    */
@@ -211,9 +211,12 @@
   } else {
     filePath = filePaths[1];
   }
-  $.getJSON(filePath, data => {
-    data.forEach(element => cucumberData.push(element));
-  })
-    .done(iterateCucumberFeatures)
-    .fail(renderError('Oops! The JSON file cannot be loaded.'));
+
+  fetch(filePath)
+    .then(res => res.json())
+    .then(res => {
+      res.forEach(element => cucumberData.push(element));
+      iterateCucumberFeatures();
+    })
+    .catch(renderError('Oops! The JSON file cannot be loaded.'));
 })();
