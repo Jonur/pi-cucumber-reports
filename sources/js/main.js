@@ -50,9 +50,9 @@
             <tbody>`;
 
           for (const element of feature.elements) {
-            const browserName = ucFirst(element.before[0].output[0].split(',')[0]),
-              browserVersion = ucFirst(element.before[0].output[0].split(',')[1]),
-              operatingSystem = ucFirst(element.before[0].output[0].split(',')[2]);
+            const browserName = ucFirst(element.before[0].output[0]),
+              browserVersion = ucFirst(element.before[0].output[1]),
+              operatingSystem = ucFirst(element.before[0].output[2]);
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, totalSteps = 0,
               status = '', statusClass = '';
 

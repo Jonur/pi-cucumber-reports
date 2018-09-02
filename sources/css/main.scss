@@ -63,7 +63,7 @@ section {
         height: 0;
         padding-top: 50%;
         padding-right: 20px;
-        float: right;
+        margin: 0 auto;
     }
 
     .pie-chart-keys {
@@ -104,6 +104,15 @@ section {
 
         .yellow {
             background-color: $statsColorYellow;
+        }
+    }
+}
+
+@media screen and (min-width: 920px) and (max-width: 1688px) {
+    section {
+        .chart {
+            width: 190px;
+            padding-top: 190px;
         }
     }
 }
