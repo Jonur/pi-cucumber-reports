@@ -1,6 +1,5 @@
 'use strict';
 
-// JSON files for iteration
 /**
  * @desc JSON files for the application to fetch the Cucumber test results from. The page refreshes every 30 seconds and depending on the
  * second of the current time, the set file is used: 0-29 seconds for the first and 30 to 59 seconds the seconds one.
@@ -13,7 +12,7 @@ const filePaths = [
 /**
  * @desc Pie Chart Color palette optimized for data visualization from
  * http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
- * The following are used inside for the actual Pie Diagrams. The `main.scss` file contains these colours, as well, as they are needed for
+ * The following are used for the actual Pie Diagrams. The `main.scss` file contains these colours, as well, as they are needed for
  * styling the labels on the right of the pie charts. Ideally, should the colours need changing, it should happen on both these and the
  * SCSS file.
  *
