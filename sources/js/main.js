@@ -1,18 +1,8 @@
 (function () {
   'use strict';
 
-  /**
-   * CONFIGURATION
-   */
-  const filePath = './cucumber-source/cucumber.json',
-
-    // Color palette optimized for data visualization from http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
-    statsColorGreen = '#60BD68',
-    statsColorRed = '#F15854',
-    statsColorYellow = '#B2912F';
   const tableReportDOM = document.querySelector('#table-report'),
     statisticsDOM = document.querySelector('#statistics');
-
   let cucumberData = new Array();
 
   /**
@@ -219,10 +209,18 @@
   /**
    * @description Use jQuery to get the JSON file contents and store them to the `cucumberData` Array. When the file has loaded, the
    * `iterateCucumberFeatures` Function executes, but if there is a problem with loading the file, then an error is shown on the page.
+   * Every 30 seconds it switches between the two files set in `config.js`.
    */
+  const d = new Date();
+  let filePath = '';
+  if (d.getSeconds() <= 29) {
+    filePath = filePaths[0];
+  } else {
+    filePath = filePaths[1];
+  }
   $.getJSON(filePath, data => {
     data.forEach(element => cucumberData.push(element));
   })
     .done(iterateCucumberFeatures)
-    .fail(renderError('Cannot load the JSON file.'));
+    .fail(renderError('Oops! The JSON file cannot be loaded.'));
 })();
