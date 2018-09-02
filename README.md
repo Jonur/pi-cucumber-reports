@@ -18,7 +18,7 @@ For development use, running `npm install` would be sufficient.
 
 ## Configuration
 
-The file `sources/config.js` should contain the file paths of the two Cucumber JSON results files, as well as the pie chart colours.
+The file `sources/js/config.js` should contain the file paths of the two Cucumber JSON results files, as well as the pie chart colours.
 
 The page refreshes every 30 seconds and depending on the second of the current time, the set file is used: 0-29 seconds for the first and 30 to 59 seconds the seconds one. The pie chart colours are used for the actual Pie Diagrams. The `sources/css/main.scss` file contains these colours, as well, as they are needed for styling the labels on the right of the pie charts. Ideally, should the colours need changing, it should happen on both these and the SCSS file.
 
