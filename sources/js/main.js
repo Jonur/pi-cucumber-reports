@@ -119,7 +119,7 @@
               <span class="scenarios-status alert-success">${scenariosPassed} / ${scenarios}</span>
               <span class="scenarios-status alert-danger">${scenariosFailed} / ${scenarios}</span>
               <span class="scenarios-status alert-warning">${scenariosUndefined} / ${scenarios}</span>
-              <span class="scenarios-status alert-info"><label>Duration:</label> ${renderDuration(featureDuration)}</span>
+              <span class="scenarios-status alert-info"><label>Duration:</label> ${renderFeatureDuration(featureDuration)}</span>
             </span>
           </h2>
           ${scenarioOutput}`;
@@ -190,6 +190,17 @@
   const renderError = (str = '') => {
     tableReportDOM.innerHTML = `<div class="alert alert-danger" role="alert">${str}</div>`;
     statisticsDOM.classList.add('d-none');
+  };
+
+  /**
+   * @function renderFeatureDuration
+   * @description Convert Nanoseconds to Seconds and return a string with the Feature's duration in minutes and seconds
+   * @param {Number} num
+   * @returns {String}
+   */
+  const renderFeatureDuration = (num = 0) => {
+    const secondsRun = Math.round((num / 1000000000).toFixed(2));
+    return `${Math.floor(secondsRun / 60)} mins ${secondsRun % 60}s`;
   };
 
   /**
