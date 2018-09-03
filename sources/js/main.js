@@ -29,7 +29,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Scenario</th>
+                <th scope="col" class="fixed-tablecell-width">Scenario</th>
                 <th scope="col">Browser</th>
                 <th scope="col">Version</th>
                 <th scope="col">Platform</th>
@@ -82,16 +82,16 @@
             }
 
             scenarioOutput += `<tr class="${statusClass}">
-              <th scope="row">${++noOfScenario}</th>
-              <td scope="col">${element.name}</td>
-              <td scope="col"><span class="text-capitalize">${browserName}</span></td>
-              <td scope="col">${browserVersion}</td>
-              <td scope="col"><span class="text-capitalize">${operatingSystem}</span></td>
-              <td scope="col"><div class="text-center">${status}</div></td>
-              <td scope="col"><div class="text-center">${statusPassed} / ${phases.length}</div></td>
-              <td scope="col"><div class="text-center">${statusFailed} / ${phases.length}</div></td>
-              <td scope="col"><div class="text-center">${statusUndefined} / ${phases.length}</div></td>
-              <td scope="col"><div class="text-center">${renderDuration(scenarioDuration)}</div></td>
+              <th scope="row"">${++noOfScenario}</th>
+              <td class="fixed-tablecell-width">${element.name}</td>
+              <td><span class="text-capitalize">${browserName}</span></td>
+              <td>${browserVersion}</td>
+              <td><span class="text-capitalize">${operatingSystem.toLowerCase()}</span></td>
+              <td><div class="text-center">${status}</div></td>
+              <td><div class="text-center">${statusPassed} / ${phases.length}</div></td>
+              <td><div class="text-center">${statusFailed} / ${phases.length}</div></td>
+              <td><div class="text-center">${statusUndefined} / ${phases.length}</div></td>
+              <td><div class="text-center">${renderDuration(scenarioDuration)}</div></td>
             </tr>`;
           }
 
