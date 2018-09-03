@@ -44,15 +44,15 @@
 
           for (const element of feature.elements) {
             const currentBefore = element.before[0],
-              browserName = currentBefore.output[0],
-              browserVersion = currentBefore.output[1],
-              operatingSystem = currentBefore.output[2];
+              browserName = currentBefore.output[0] || '',
+              browserVersion = currentBefore.output[1] || '',
+              operatingSystem = currentBefore.output[2] || '';
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '';
 
             // Calculate the scenario's duration and status
             const phases = [...element.before, ...element.steps, ...element.after];
             for (const phase of phases) {
-              scenarioDuration += phase.result.duration;
+              scenarioDuration += !!phase.result.duration ? phase.result.duration : 0;
               if (phase.result.status === 'failed') {
                 ++statusFailed;
               } else if (phase.result.status !== 'passed' && phase.result.status !== 'failed') {
@@ -123,6 +123,9 @@
             </span>
           </h2>
           ${scenarioOutput}`;
+
+        document.getElementById('project').innerHTML = !!feature.project ? ` for ${feature.project}` : '';
+        document.getElementById('runtime').innerHTML = !!feature.runTime ? `Last run: ${feature.runTime}` : '';
       }
 
       generateFeaturePieChart(featuresPassed, featuresFailed);
