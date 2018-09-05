@@ -123,9 +123,6 @@
             </span>
           </h2>
           ${scenarioOutput}`;
-
-        document.getElementById('project').innerHTML = !!feature.project ? ` for ${feature.project}` : '';
-        document.getElementById('runtime').innerHTML = !!feature.runTime ? `Last run: ${feature.runTime}` : '';
       }
 
       generateFeaturePieChart(featuresPassed, featuresFailed);
@@ -229,8 +226,11 @@
   fetch(filePath)
     .then(res => res.json())
     .then(res => {
-      res.forEach(element => cucumberData.push(element));
+      res.features.forEach(element => cucumberData.push(element));
       iterateCucumberFeatures();
+      document.getElementById('project').innerHTML = !!res.project ? ` for ${res.project}` : '';
+      document.getElementById('runtime').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
+
     })
     .catch(renderError('Oops! The JSON file cannot be loaded.'));
 })();
