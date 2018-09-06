@@ -5,8 +5,8 @@
  * second of the current time, the set file is used: 0-29 seconds for the first and 30 to 59 seconds the seconds one.
  */
 const filePaths = [
-  './cucumber-source/pi/cucumber.json',
-  './cucumber-source/bb/cucumber.json'
+  './cucumber-source/PI/cucumber.json',
+  './cucumber-source/BB/cucumber.json'
 ];
 
 /**
