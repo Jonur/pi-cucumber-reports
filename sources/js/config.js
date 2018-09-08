@@ -10,7 +10,8 @@ const filePaths = [
 ];
 
 /**
- * @desc The time interval (in seconds) to switch between projects. After the set time, the next JSON file will be rendered.
+ * @desc The time interval (in seconds) to switch between projects. After the set time, the next JSON file will be rendered. Set it to 0
+ * to stop the auto-navigation/auto-refresh.
  */
 const pageInterval = 30;
 
