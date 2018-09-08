@@ -44,7 +44,7 @@
             <tbody>`;
 
           for (const element of feature.elements) {
-            const currentBefore = element.before[element.before.length-1],
+            const currentBefore = element.before[element.before.length - 1],
               browserName = currentBefore.output[0] || '',
               browserVersion = currentBefore.output[1] || '',
               operatingSystem = currentBefore.output[2] || '',
@@ -233,6 +233,7 @@
       iterateCucumberFeatures();
       document.getElementById('project').innerHTML = !!res.project ? ` for ${res.project}` : '';
       document.getElementById('runtime').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
+      document.getElementById('environment').innerHTML = !!res.environment ? ` - ${res.environment.toLowerCase()}` : '';
 
     })
     .catch(renderError('Oops! The JSON file cannot be loaded.'));
