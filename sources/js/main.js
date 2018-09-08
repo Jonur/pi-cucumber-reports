@@ -274,10 +274,11 @@
    * `iterateCucumberFeatures` Function executes, but if there is a problem with loading the file, then an error is shown on the page.
    */
   const url = new URL(window.location.href),
-    page = url.searchParams.get('page') || 0;
+    page = url.searchParams.get('page') || 0,
+    cacheBustingHash = [...Array(10)].map(() => Math.random().toString(36)[3]).join('');
   let filePath = '';
 
-  filePath = (!!page && filePaths[page]) ? filePaths[page] : filePaths[0];
+  filePath = `${(!!page && filePaths[page]) ? filePaths[page] : filePaths[0]}?v=${cacheBustingHash}`;
   generateProjectNavigation(parseInt(page));
 
   fetch(filePath)
