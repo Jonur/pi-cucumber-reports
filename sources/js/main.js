@@ -33,6 +33,7 @@
                 <th scope="col">Browser</th>
                 <th scope="col">Version</th>
                 <th scope="col">Platform</th>
+                <th scope="col">Resolution</th>
                 <th scope="col"><div class="text-center">Status</div></th>
                 <th scope="col"><div class="text-center">Steps Passed</div></th>
                 <th scope="col"><div class="text-center">Steps Failed</div></th>
@@ -46,7 +47,8 @@
             const currentBefore = element.before[element.before.length-1],
               browserName = currentBefore.output[0] || '',
               browserVersion = currentBefore.output[1] || '',
-              operatingSystem = currentBefore.output[2] || '';
+              operatingSystem = currentBefore.output[2] || '',
+              browserResolution = currentBefore.output[3] || '';
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '';
 
             // Calculate the scenario's duration and status
@@ -87,6 +89,7 @@
               <td><span class="text-capitalize">${browserName}</span></td>
               <td>${browserVersion}</td>
               <td><span class="text-capitalize">${operatingSystem.toLowerCase()}</span></td>
+              <td>${browserResolution}</td>
               <td><div class="text-center">${status}</div></td>
               <td><div class="text-center">${statusPassed} / ${phases.length}</div></td>
               <td><div class="text-center">${statusFailed} / ${phases.length}</div></td>
