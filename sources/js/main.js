@@ -113,12 +113,12 @@
           ++featuresFailed;
         }
 
-        tableReportDOM.innerHTML += `<h2 class="row push-up">
+        tableReportDOM.innerHTML += `<h2 class="row push-up expanded" onclick="toggleScenarios(this)">
             <span class="col text-sm-left">
               ${feature.name}
               <span class="feature-status ${featureStatusClass}">${featureStatus}</span>
             </span>
-            <span class="col text-sm-right">
+            <span class="col text-sm-right pr-0">
               <span class="scenarios-status alert-success">${scenariosPassed} / ${scenarios}</span>
               <span class="scenarios-status alert-danger">${scenariosFailed} / ${scenarios}</span>
               <span class="scenarios-status alert-warning">${scenariosUndefined} / ${scenarios}</span>
@@ -212,6 +212,30 @@
    * @param {Number} num
    */
   const renderDuration = (num = 0) => `${(num / 1000000000).toFixed(2)}s`;
+
+  /**
+   * @function toggleScenarios
+   * @description Toggles an element's next table sibling
+   * @param {Object} element
+   */
+  window.toggleScenarios = (element) => {
+    const next = element.nextElementSibling;
+    if (element.classList.value.includes('expanded')) {
+      element.classList.add('collapsed');
+      element.classList.remove('expanded');
+      if (next.tagName === 'TABLE') {
+        next.classList.add('d-none');
+        next.classList.remove('d-table');
+      }
+    } else if (element.classList.value.includes('collapsed')) {
+      element.classList.add('expanded');
+      element.classList.remove('collapsed');
+      if (next.tagName === 'TABLE') {
+        next.classList.add('d-table');
+        next.classList.remove('d-none');
+      }
+    }
+  };
 
   /**
    * @description Get the JSON file contents and store them to the `cucumberData` Array. When the file has loaded, the
