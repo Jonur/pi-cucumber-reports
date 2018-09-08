@@ -10,6 +10,11 @@ const filePaths = [
 ];
 
 /**
+ * @desc The time interval (in seconds) to switch between projects. After the set time, the next JSON file will be rendered.
+ */
+const pageInterval = 30;
+
+/**
  * @desc Pie Chart Color palette optimized for data visualization from
  * http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
  * The following are used for the actual Pie Diagrams. The `main.scss` file contains these colours, as well, as they are needed for

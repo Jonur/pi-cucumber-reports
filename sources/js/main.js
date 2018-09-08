@@ -218,7 +218,7 @@
    * @description Toggles an element's next table sibling
    * @param {Object} element
    */
-  window.toggleScenarios = (element) => {
+  window.toggleScenarios = element => {
     const next = element.nextElementSibling;
     if (element.classList.value.includes('expanded')) {
       element.classList.add('collapsed');
@@ -238,17 +238,47 @@
   };
 
   /**
+   * @function generateProjectNavigation
+   * @description Create the project navigation links on each side of the header
+   * @param {Number} page
+   */
+  const generateProjectNavigation = (page = 0) => {
+    if (!filePaths[page - 1]) {
+      document.getElementById('prev').href = `?page=${filePaths.length - 1}`;
+    } else {
+      document.getElementById('prev').href = `?page=${page - 1}`;
+    }
+    if (!filePaths[page + 1]) {
+      document.getElementById('next').href = `?page=0`;
+    } else {
+      document.getElementById('next').href = `?page=${page + 1}`;
+    }
+  };
+
+  /**
+   * @function prepareNext
+   * @description Create the link of the next page and navigate to the next page after the configured time (config.js)
+   * @param {Number} page
+   */
+  const prepareNext = (page = 0) => {
+    const nextPage = filePaths[page + 1] ? `?page=${page + 1}` : `?page=0`;
+    if (pageInterval) {
+      setTimeout(() => {
+        window.location.href = nextPage;
+      }, pageInterval * 1000);
+    }
+  };
+
+  /**
    * @description Get the JSON file contents and store them to the `cucumberData` Array. When the file has loaded, the
    * `iterateCucumberFeatures` Function executes, but if there is a problem with loading the file, then an error is shown on the page.
-   * Every 30 seconds it switches between the two files set in `config.js`.
    */
-  const d = new Date();
+  const url = new URL(window.location.href),
+    page = url.searchParams.get('page') || 0;
   let filePath = '';
-  if (d.getSeconds() <= 29) {
-    filePath = filePaths[0];
-  } else {
-    filePath = filePaths[1];
-  }
+
+  filePath = (!!page && filePaths[page]) ? filePaths[page] : filePaths[0];
+  generateProjectNavigation(parseInt(page));
 
   fetch(filePath)
     .then(res => res.json())
@@ -258,7 +288,7 @@
       document.getElementById('project').innerHTML = !!res.project ? ` for ${res.project}` : '';
       document.getElementById('runtime').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
       document.getElementById('environment').innerHTML = !!res.environment ? ` - ${res.environment.toLowerCase()}` : '';
-
+      prepareNext(parseInt(page));
     })
     .catch(renderError('Oops! The JSON file cannot be loaded.'));
 })();
