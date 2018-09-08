@@ -1,0 +1,32 @@
+section {
+    &.nav-group {
+        a.project-nav, a.project-nav:link, a.project-nav:hover {
+            color: $pi-white;
+            text-decoration: none;
+            text-align: center;
+            background-color: $pi-purple-light;
+            font-size: 2.85rem;
+        }
+
+        nav {
+            background-color: $pi-purple;
+
+            img {
+                width: auto;
+                height: 50px;
+            }
+
+            h1 {
+                float: right;
+                font-size: 2rem;
+                color: $pi-white;
+                margin: 0;
+            }
+
+            h5 {
+                color: $pi-white;
+                margin: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+section {
+    &.table-report {
+        padding: 20px;
+
+        h2 {
+            color: $pi-purple-dark;
+            font-weight: bold;
+            font-size: 1.438rem;
+            line-height: 1.75rem;
+            cursor: pointer;
+
+            &.push-up {
+                margin-top: 2rem;
+                margin-right: 0;
+                margin-left: 0;
+            }
+
+            &.expanded {
+                &::before {
+                    content: '▼';
+                    font-size: 85%;
+                }
+            }
+
+            &.collapsed {
+                border-bottom: 1px solid $border;
+                padding-bottom: 8px;
+
+                &::before {
+                    content: '►';
+                    font-size: 85%;
+                }
+            }
+        }
+
+        label {
+            margin: 0;
+        }
+
+        .feature-status, .scenarios-status {
+            padding: 0 10px;
+            border-radius: 6px;
+        }
+    }
+}

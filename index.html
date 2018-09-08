@@ -31,49 +31,50 @@
         <a id="next" class="project-nav" href="">&raquo;</a>
     </section>
 
-    <h2 class="row m-0 squeeze">
-        <div class="col pi-underlined mt-4 text-center">Feature Coverage</div>
-        <div class="col pi-underlined mt-4 text-center">Scenario Coverage</div>
-    </h2>
-
-    <section id="statistics" class="row m-0">
-        <div class="col">
-            <div id="feature-pie-chart" class="chart"></div>
-        </div>
-        <div class="col pie-chart-keys">
-            <ul class="key">
-                <li>
-                    <strong id="features-passed" class="percent green"></strong>
-                    <span class="choice">Features Passed</span>
-                </li>
-                <li>
-                    <strong id="features-failed" class="percent red"></strong>
-                    <span class="choice">Features Failed</span>
-                </li>
-            </ul>
-        </div>
-        <div class="col">
-            <div id="scenarios-pie-chart" class="chart"></div>
-        </div>
-        <div class="col pie-chart-keys">
-            <ul class="key">
-                <li>
-                    <strong id="scenarios-passed" class="percent green"></strong>
-                    <span class="choice">Scenarios Passed</span>
-                </li>
-                <li>
-                    <strong id="scenarios-failed" class="percent red"></strong>
-                    <span class="choice">Scenarios Failed</span>
-                </li>
-                <li>
-                    <strong id="scenarios-undefined" class="percent yellow"></strong>
-                    <span class="choice">Scenarios Undefined</span>
-                </li>
-            </ul>
+    <section id="statistics" class="statistics-details">
+        <h2 class="row m-0 squeeze">
+            <div class="col pi-underlined mt-4 text-center">Feature Coverage</div>
+            <div class="col pi-underlined mt-4 text-center">Scenario Coverage</div>
+        </h2>
+        <div class="row m-0">
+            <div class="col">
+                <div id="feature-pie-chart" class="chart"></div>
+            </div>
+            <div class="col pie-chart-keys">
+                <ul class="key">
+                    <li>
+                        <strong id="features-passed" class="percent green"></strong>
+                        <span class="choice">Features Passed</span>
+                    </li>
+                    <li>
+                        <strong id="features-failed" class="percent red"></strong>
+                        <span class="choice">Features Failed</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <div id="scenarios-pie-chart" class="chart"></div>
+            </div>
+            <div class="col pie-chart-keys">
+                <ul class="key">
+                    <li>
+                        <strong id="scenarios-passed" class="percent green"></strong>
+                        <span class="choice">Scenarios Passed</span>
+                    </li>
+                    <li>
+                        <strong id="scenarios-failed" class="percent red"></strong>
+                        <span class="choice">Scenarios Failed</span>
+                    </li>
+                    <li>
+                        <strong id="scenarios-undefined" class="percent yellow"></strong>
+                        <span class="choice">Scenarios Undefined</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 
-    <section id="table-report" class="container-fluid"></section>
+    <section id="table-report" class="table-report container-fluid"></section>
 </body>
 
 </html>
