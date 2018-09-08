@@ -41,5 +41,15 @@ section {
             padding: 0 10px;
             border-radius: 6px;
         }
+
+        tr.alert-danger {
+            cursor: pointer;
+        }
+
+        pre {
+            word-wrap: break-word;
+
+            @include pref(white-space, pre-wrap);
+        }
     }
 }

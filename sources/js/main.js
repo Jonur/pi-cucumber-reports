@@ -49,7 +49,8 @@
               browserVersion = currentBefore.output[1] || '',
               operatingSystem = currentBefore.output[2] || '',
               browserResolution = currentBefore.output[3] || '';
-            let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '';
+            let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '', errorLog = '',
+              toggleErrorDetails = '';
 
             // Calculate the scenario's duration and status
             const phases = [...element.before, ...element.steps, ...element.after];
@@ -57,6 +58,7 @@
               scenarioDuration += !!phase.result.duration ? phase.result.duration : 0;
               if (phase.result.status === 'failed') {
                 ++statusFailed;
+                errorLog += `<pre>${phase.result.error_message}</pre>`;
               } else if (phase.result.status !== 'passed' && phase.result.status !== 'failed') {
                 ++statusUndefined;
               } else {
@@ -71,6 +73,7 @@
               statusClass = 'alert-danger';
               ++scenariosFailed;
               ++totalScenariosFailed;
+              toggleErrorDetails = ' onclick="toggleErrorDetails(this)"';
             } else if (statusUndefined) {
               status = 'Undefined';
               statusClass = 'alert-warning';
@@ -83,7 +86,7 @@
               ++totalScenariosPassed;
             }
 
-            scenarioOutput += `<tr class="${statusClass}">
+            scenarioOutput += `<tr class="${statusClass} collapsed"${toggleErrorDetails}>
               <th scope="row"">${++noOfScenario}</th>
               <td class="fixed-tablecell-width">${element.name}</td>
               <td><span class="text-capitalize">${browserName}</span></td>
@@ -96,6 +99,13 @@
               <td><div class="text-center">${statusUndefined} / ${phases.length}</div></td>
               <td><div class="text-center">${renderDuration(scenarioDuration)}</div></td>
             </tr>`;
+
+            if (errorLog) {
+              scenarioOutput += `<tr class="alert-secondary d-none">
+                <th scope="row">E</th>
+                <td colspan="10">${errorLog}</td>
+              </tr>`;
+            }
           }
 
           scenarioOutput += `</tbody>
@@ -238,6 +248,31 @@
   };
 
   /**
+  * @function toggleErrorDetails
+  * @description Toggles a failed scenario's row error details
+  * @param {Object} element
+  */
+  window.toggleErrorDetails = element => {
+    const errorDetails = element.nextElementSibling;
+    console.log(errorDetails);
+    if (element.classList.value.includes('expanded')) {
+      element.classList.add('collapsed');
+      element.classList.remove('expanded');
+      if (errorDetails.tagName === 'TR') {
+        errorDetails.classList.add('d-none');
+        errorDetails.classList.remove('d-table-row');
+      }
+    } else if (element.classList.value.includes('collapsed')) {
+      element.classList.add('expanded');
+      element.classList.remove('collapsed');
+      if (errorDetails.tagName === 'TR') {
+        errorDetails.classList.add('d-table-row');
+        errorDetails.classList.remove('d-none');
+      }
+    }
+  };
+
+  /**
    * @function generateProjectNavigation
    * @description Create the project navigation links on each side of the header
    * @param {Number} page
@@ -288,7 +323,7 @@
       iterateCucumberFeatures();
       document.getElementById('project').innerHTML = !!res.project ? ` for ${res.project}` : '';
       document.getElementById('runtime').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
-      document.getElementById('environment').innerHTML = !!res.environment ? ` - ${res.environment.toLowerCase()}` : '';
+      document.getElementById('environment').innerHTML = !!res.environment ? ` - ${res.environment}` : '';
       prepareNext(parseInt(page));
     })
     .catch(renderError('Oops! The JSON file cannot be loaded.'));
