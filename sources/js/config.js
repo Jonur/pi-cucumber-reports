@@ -6,7 +6,8 @@
  */
 const filePaths = [
   './cucumber-source/PI/cucumber.json',
-  './cucumber-source/BB/cucumber.json'
+  './cucumber-source/BB/cucumber.json',
+  './cucumber-source/BE/cucumber.json'
 ];
 
 /**
