@@ -14,7 +14,8 @@
   "homepage": "https://github.com/Jonur/pi-cucumber-reports#readme",
   "dependencies": {
     "bootstrap": "^4.1.3",
-    "conic-gradient": "^1.0.0"
+    "conic-gradient": "^1.0.0",
+    "lightbox2": "^2.10.0"
   },
   "devDependencies": {
     "gulp": "^4.0.0",

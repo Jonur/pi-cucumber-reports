@@ -10,7 +10,9 @@
     uglify = require('gulp-uglify');
 
   // CSS
-  const cssFiles = ['./node_modules/bootstrap/dist/css/bootstrap.min.css', './sources/css/**/*.scss'];
+  const cssFiles = ['./node_modules/bootstrap/dist/css/bootstrap.min.css',
+    './node_modules/lightbox2/dist/css/lightbox.min.css',
+    './sources/css/**/*.scss'];
   gulp.task('sass', () => {
     return gulp.src(cssFiles)
       .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
@@ -23,7 +25,8 @@
   // JS
   const jsFiles = [
     './node_modules/prefixfree/prefixfree.min.js',
-    './node_modules/conic-gradient/conic-gradient.js'];
+    './node_modules/conic-gradient/conic-gradient.js',
+    './node_modules/lightbox2/dist/js/lightbox-plus-jquery.min.js'];
 
   gulp.task('js-modules', () => {
     return gulp.src(jsFiles)

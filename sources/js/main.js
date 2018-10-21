@@ -50,7 +50,7 @@
               operatingSystem = currentBefore.output[2] || '',
               browserResolution = currentBefore.output[3] || '';
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '', errorLog = '',
-              toggleErrorDetails = '';
+              toggleErrorDetails = '', imageOutput = '';
 
             // Calculate the scenario's duration and status
             const phases = [...element.before, ...element.steps, ...element.after];
@@ -101,9 +101,24 @@
             </tr>`;
 
             if (errorLog) {
+              const errorImage = element.after[0].output[0];
+              let errorColumns = 10;
+
+              if (errorImage) {
+                imageOutput = `
+                  <td colspan="3">
+                    <a href="${errorImage}" data-lightbox="image-1" data-title="Error report">
+                      <img class="thumb" src="${errorImage}">
+                    </a>
+                  </td>`;
+
+                errorColumns = 7;
+              }
+
               scenarioOutput += `<tr class="alert-secondary d-none">
                 <th scope="row">E</th>
-                <td colspan="10">${errorLog}</td>
+                <td colspan="${errorColumns}">${errorLog}</td>
+                ${imageOutput}
               </tr>`;
             }
           }
@@ -254,7 +269,6 @@
   */
   window.toggleErrorDetails = element => {
     const errorDetails = element.nextElementSibling;
-    console.log(errorDetails);
     if (element.classList.value.includes('expanded')) {
       element.classList.add('collapsed');
       element.classList.remove('expanded');

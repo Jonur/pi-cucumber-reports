@@ -46,10 +46,17 @@ section {
             cursor: pointer;
         }
 
-        pre {
-            word-wrap: break-word;
+        tr.alert-secondary {
+            pre {
+                word-wrap: break-word;
 
-            @include pref(white-space, pre-wrap);
+                @include pref(white-space, pre-wrap);
+            }
+
+            .thumb {
+                max-width: 100%;
+                height: auto;
+            }
         }
     }
 }
