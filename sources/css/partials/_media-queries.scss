@@ -35,3 +35,10 @@
         }
     }
 }
+
+@media screen and (max-width: 1226px) {
+    section.statistics-details > div .pie-chart-keys .choice {
+        text-align: start;
+        vertical-align: middle;
+    }
+}

@@ -1,70 +1,71 @@
 section {
-  &.statistics-details {
-      .squeeze {
-          padding: 0 20px;
+    &.statistics-details {
+        .squeeze {
+            padding: 0 20px;
 
-          .pi-underlined {
-              color: $pi-purple-dark;
-              font-weight: bold;
-              font-size: 1.438rem;
-              line-height: 1.75rem;
-              padding-bottom: 8px;
-              border-bottom: 1px solid $pi-grey;
-          }
-      }
+            .pi-underlined {
+                color: $pi-purple-dark;
+                font-weight: bold;
+                font-size: 1.438rem;
+                line-height: 1.75rem;
+                padding-bottom: 8px;
+                border-bottom: 1px solid $pi-grey;
+            }
+        }
 
-      > div {
-          padding: 20px;
+        > div {
+            padding: 20px;
 
-          .chart {
-              border-radius: 50%;
-              width: 50%;
-              height: 0;
-              padding-top: 50%;
-              padding-right: 20px;
-              margin: 0 auto;
-          }
+            .chart {
+                border-radius: 50%;
+                width: 50%;
+                height: 0;
+                padding-top: 50%;
+                padding-right: 20px;
+                margin: 0 auto;
+            }
 
-          .pie-chart-keys {
-              .key {
-                  float: left;
-                  list-style: none;
-                  display: table;
-                  border-collapse: separate;
+            .pie-chart-keys {
+                .key {
+                    float: left;
+                    list-style: none;
+                    display: table;
+                    border-collapse: separate;
 
-                  > li {
-                      display: table-row;
+                    > li {
+                        display: table-row;
 
-                      > * {
-                          display: table-cell;
-                          border-bottom: 12px solid $pi-white;
-                      }
-                  }
-              }
+                        > * {
+                            display: table-cell;
+                            border-bottom: 12px solid $pi-white;
+                        }
+                    }
+                }
 
-              .percent {
-                  color: $pi-white;
-                  padding: 10px;
-                  text-shadow: 0 0 1px $pi-black;
-                  text-align: center;
-              }
+                .percent {
+                    display: block;
+                    color: $pi-white;
+                    padding: 10px;
+                    text-shadow: 0 0 1px $pi-black;
+                    text-align: center;
+                }
 
-              .choice {
-                  padding-left: 10px;
-              }
+                .choice {
+                    padding-left: 10px;
+                }
 
-              .green {
-                  background-color: $statsColorGreen;
-              }
+                .green {
+                    background-color: $statsColorGreen;
+                }
 
-              .red {
-                  background-color: $statsColorRed;
-              }
+                .red {
+                    background-color: $statsColorRed;
+                }
 
-              .yellow {
-                  background-color: $statsColorYellow;
-              }
-          }
-      }
-  }
+                .yellow {
+                    background-color: $statsColorYellow;
+                }
+            }
+        }
+    }
 }

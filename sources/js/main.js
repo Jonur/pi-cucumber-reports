@@ -1,4 +1,4 @@
-(function () {
+(() => {
   'use strict';
 
   const tableReportDOM = document.getElementById('table-report'),
