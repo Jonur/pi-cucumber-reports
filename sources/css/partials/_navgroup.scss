@@ -1,4 +1,26 @@
-section {
+header {
+    &.print {
+        display: block;
+        background-color: $pi-purple;
+        color: $pi-white;
+        padding: .5rem 1rem;
+        text-align: center;
+
+        img {
+            width: auto;
+            height: 50px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        h5 {
+            padding-right: 1rem;
+        }
+    }
+
     &.nav-group {
         a.project-nav, a.project-nav:link, a.project-nav:hover {
             color: $pi-white;

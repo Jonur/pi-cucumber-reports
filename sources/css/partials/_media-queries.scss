@@ -1,4 +1,4 @@
-@media screen and (min-width: 320px) {
+@media (min-width: 320px) {
     .nav-group {
         display: block;
 
@@ -8,7 +8,7 @@
     }
 }
 
-@media screen and (min-width: 992px) {
+@media (min-width: 992px) {
     .nav-group {
         display: flex;
 
@@ -27,7 +27,7 @@
     }
 }
 
-@media screen and (min-width: 920px) and (max-width: 1688px) {
+@media (min-width: 920px) and (max-width: 1688px) {
     section {
         .chart {
             width: 190px;
@@ -36,9 +36,29 @@
     }
 }
 
-@media screen and (max-width: 1226px) {
+@media (max-width: 1226px) {
     section.statistics-details > div .pie-chart-keys .choice {
         text-align: start;
         vertical-align: middle;
     }
+}
+
+@media print {
+    header.print {
+        display: block;
+    }
+
+    header.nav-group {
+        display: none;
+    }
+}
+
+@media screen {
+    header.print {
+        display: none;
+    }
+}
+
+@page {
+    size: auto;
 }

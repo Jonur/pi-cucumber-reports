@@ -286,6 +286,10 @@
     }
   };
 
+  window.downloadPDF = () => {
+    // tba
+  };
+
   /**
    * @function generateProjectNavigation
    * @description Create the project navigation links on each side of the header
@@ -338,6 +342,9 @@
       document.getElementById('project').innerHTML = !!res.project ? ` for ${res.project}` : '';
       document.getElementById('runtime').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
       document.getElementById('environment').innerHTML = !!res.environment ? ` - ${res.environment}` : '';
+      document.getElementById('project-print').innerHTML = !!res.project ? ` for ${res.project}` : '';
+      document.getElementById('runtime-print').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
+      document.getElementById('environment-print').innerHTML = !!res.environment ? ` - ${res.environment}` : '';
       prepareNext(parseInt(page));
     })
     .catch(renderError('Oops! The JSON file cannot be loaded.'));
