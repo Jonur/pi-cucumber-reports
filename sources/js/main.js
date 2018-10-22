@@ -101,7 +101,7 @@
             </tr>`;
 
             if (errorLog) {
-              const errorImage = element.after[0].output[0];
+              const errorImage = element.after[0].output ? element.after[0].output[0] : '';
               let errorColumns = 10;
 
               if (errorImage) {
@@ -284,10 +284,6 @@
         errorDetails.classList.remove('d-none');
       }
     }
-  };
-
-  window.downloadPDF = () => {
-    // tba
   };
 
   /**
