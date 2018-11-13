@@ -44,7 +44,7 @@
             <tbody>`;
 
           for (const element of feature.elements) {
-            const currentBefore = element.before[element.before.length - 1],
+            const currentBefore = element.before[0],
               browserName = currentBefore.output[0] || '',
               browserVersion = currentBefore.output[1] || '',
               operatingSystem = currentBefore.output[2] || '',

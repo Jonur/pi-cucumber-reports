@@ -14,7 +14,7 @@ const filePaths = [
  * @desc The time interval (in seconds) to switch between projects. After the set time, the next JSON file will be rendered. Set it to 0
  * to stop the auto-navigation/auto-refresh.
  */
-const pageInterval = 0;
+const pageInterval = 30;
 
 /**
  * @desc Pie Chart Color palette optimized for data visualization from
