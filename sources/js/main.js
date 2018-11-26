@@ -25,15 +25,19 @@
         if (scenarios) {
           statisticsDOM.classList.remove('d-none');
 
+          const webApplicationColumns = `
+            <th scope="col">Browser</th>
+            <th scope="col">Version</th>
+            <th scope="col">Platform</th>
+            <th scope="col">Resolution</th>
+          `;
+
           scenarioOutput = `<table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col" class="fixed-tablecell-width">Scenario</th>
-                <th scope="col">Browser</th>
-                <th scope="col">Version</th>
-                <th scope="col">Platform</th>
-                <th scope="col">Resolution</th>
+                ${webApplicationColumns}
                 <th scope="col"><div class="text-center">Status</div></th>
                 <th scope="col"><div class="text-center">Steps Passed</div></th>
                 <th scope="col"><div class="text-center">Steps Failed</div></th>
@@ -45,10 +49,10 @@
 
           for (const element of feature.elements) {
             const currentBefore = element.before[0],
-              browserName = currentBefore.output[0] || '',
-              browserVersion = currentBefore.output[1] || '',
-              operatingSystem = currentBefore.output[2] || '',
-              browserResolution = currentBefore.output[3] || '';
+              browserName = currentBefore.output ? currentBefore.output[0] : '',
+              browserVersion = currentBefore.output ? currentBefore.output[1] : '',
+              operatingSystem = currentBefore.output ? currentBefore.output[2] : '',
+              browserResolution = currentBefore.output ? currentBefore.output[3] : '';
             let scenarioDuration = 0, statusPassed = 0, statusFailed = 0, statusUndefined = 0, status = '', statusClass = '', errorLog = '',
               toggleErrorDetails = '', imageOutput = '';
 
