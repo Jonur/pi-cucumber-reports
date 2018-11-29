@@ -9,7 +9,7 @@
    * @function iterateCucumberFeatures
    * @description Iterate the Cucumber report per feature and then per scenario and render the results.
    */
-  const iterateCucumberFeatures = () => {
+  const iterateCucumberFeatures = (mode = 'features') => {
     if (cucumberData.length) {
       let feature = {}, scenarios, featuresPassed = 0, featuresFailed = 0, totalScenariosPassed = 0, totalScenariosFailed = 0,
         totalScenariosUndefined = 0;
@@ -37,7 +37,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col" class="fixed-tablecell-width">Scenario</th>
-                ${webApplicationColumns}
+                ${mode === 'features' ? webApplicationColumns : ''}
                 <th scope="col"><div class="text-center">Status</div></th>
                 <th scope="col"><div class="text-center">Steps Passed</div></th>
                 <th scope="col"><div class="text-center">Steps Failed</div></th>
@@ -90,13 +90,17 @@
               ++totalScenariosPassed;
             }
 
-            scenarioOutput += `<tr class="${statusClass} collapsed"${toggleErrorDetails}>
-              <th scope="row"">${++noOfScenario}</th>
-              <td class="fixed-tablecell-width">${element.name}</td>
+            let scenarioOutputFeatureColumns = `
               <td><span class="text-capitalize">${browserName}</span></td>
               <td>${browserVersion}</td>
               <td><span class="text-capitalize">${operatingSystem.toLowerCase()}</span></td>
               <td>${browserResolution}</td>
+            `;
+
+            scenarioOutput += `<tr class="${statusClass} collapsed"${toggleErrorDetails}>
+              <th scope="row"">${++noOfScenario}</th>
+              <td class="fixed-tablecell-width">${element.name}</td>
+              ${mode === 'features' ? scenarioOutputFeatureColumns : ''}
               <td><div class="text-center">${status}</div></td>
               <td><div class="text-center">${statusPassed} / ${phases.length}</div></td>
               <td><div class="text-center">${statusFailed} / ${phases.length}</div></td>
@@ -337,8 +341,14 @@
   fetch(filePath)
     .then(res => res.json())
     .then(res => {
-      res.features.forEach(element => cucumberData.push(element));
-      iterateCucumberFeatures();
+      if (res.features) {
+        res.features.forEach(element => cucumberData.push(element));
+        iterateCucumberFeatures('features');
+      } else if (res.apifeatures) {
+        res.apifeatures.forEach(element => cucumberData.push(element));
+        iterateCucumberFeatures('apifeatures');
+      }
+
       document.getElementById('project').innerHTML = !!res.project ? ` for ${res.project}` : '';
       document.getElementById('runtime').innerHTML = !!res.runTime ? `Last run: ${res.runTime}` : '';
       document.getElementById('environment').innerHTML = !!res.environment ? ` - ${res.environment}` : '';
